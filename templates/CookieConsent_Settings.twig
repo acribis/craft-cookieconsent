@@ -1,0 +1,133 @@
+{#
+/**
+ * Cookie Consent plugin for Craft CMS
+ *
+ * Cookie Consent Settings.twig
+ *
+ * @author    acribis AG
+ * @copyright Copyright (c) 2018 acribis AG
+ * @link      https://acribis.ch/
+ * @package   CookieConsent
+ * @since     0.1.0
+ */
+#}
+
+{% import '_includes/forms' as forms %}
+
+{% includeCssResource 'cookieconsent/css/CookieConsent_Style.css' %}
+{% includeJsResource 'cookieconsent/js/CookieConsent_Script.js' %}
+
+{{ forms.selectField({
+    label: 'Position'|t,
+    id: 'position',
+    name: 'position',
+    options: {
+        top: 'Top'|t,
+        toppush: 'Top Pushdown'|t,
+        bottom: 'Bottom'|t,
+        left: 'Left'|t,
+        right: 'Right'|t,
+        'bottom-left': 'Bottom Left'|t,
+        'bottom-right':'Bottom Right'|t,
+    },
+    value: settings.position,
+}) }}
+
+{{ forms.selectField({
+    label: 'Layout'|t,
+    id: 'layout',
+    name: 'layout',
+    options: {
+        block: 'Block'|t,
+        classic: 'Classic'|t,
+        edgeless: 'Edgeless'|t,
+        wire: 'Wire'|t
+    },
+    value: settings.layout,
+}) }}
+
+<hr>
+
+{{ forms.colorField({
+    label: 'Banner Background'|t,
+    instructions: 'Background color for the modal banner'|t,
+    id: 'palette_banner',
+    name: 'palette_banner',
+    value: settings.palette_banner,
+}) }}
+
+{{ forms.colorField({
+    label: 'Button Background'|t,
+    instructions: 'Background color for the modal button'|t,
+    id: 'palette_button',
+    name: 'palette_button',
+    value: settings.palette_button,
+}) }}
+
+{{ forms.colorField({
+    label: 'Banner Text'|t,
+    instructions: 'Color for the modal banner text'|t,
+    id: 'palette_banner_text',
+    name: 'palette_banner_text',
+    value: settings.palette_banner_text,
+}) }}
+
+{{ forms.colorField({
+    label: 'Button Text'|t,
+    instructions: 'Color for the modal button text'|t,
+    id: 'palette_button_text',
+    name: 'palette_button_text',
+    value: settings.palette_button_text,
+}) }}
+
+<hr>
+
+{# todo Add relations field for internal links #}
+{{ forms.textField({
+    label: 'Learn More Link'|t,
+    id: 'learn_more_link',
+    name: 'learn_more_link',
+    value: settings.learn_more_link,
+    errors: settings.getErrors('learn_more_link'),
+}) }}
+
+{{ forms.textField({
+    label: 'Learn More Text'|t,
+    id: 'learn_more_link_text',
+    name: 'learn_more_link_text',
+    value: settings.learn_more_link_text,
+    errors: settings.getErrors('learn_more_link_text'),
+}) }}
+
+{{ forms.textareaField({
+    label: 'Message'|t,
+    id: 'message',
+    name: 'message',
+    value: settings.message,
+    errors: settings.getErrors('message'),
+    rows: 3,
+}) }}
+
+{{ forms.textField({
+    label: 'Dismiss Button Text'|t,
+    id: 'dismiss',
+    name: 'dismiss',
+    value: settings.dismiss,
+    errors: settings.getErrors('dismiss')
+}) }}
+
+{{ forms.textField({
+    label: 'Allow Button Text'|t,
+    id: 'allow',
+    name: 'allow',
+    value: settings.allow,
+    errors: settings.getErrors('allow')
+}) }}
+
+{{ forms.textField({
+    label: 'Deny Button Text'|t,
+    id: 'deny',
+    name: 'deny',
+    value: settings.deny,
+    errors: settings.getErrors('deny')
+}) }}

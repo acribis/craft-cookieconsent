@@ -1,0 +1,16 @@
+{
+	"name": "acribis/cookieconsent",
+	"description": "This is a generic Craft CMS plugin",
+	"type": "craft-plugin",
+	"authors": [
+		{
+			"name": "acribis AG",
+			"homepage": "https://acribis.ch/"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0",
+		"fxp/composer-asset-plugin": "^1.4",
+        "npm-asset/cookieconsent": "^3.0.6"
+	}
+}
