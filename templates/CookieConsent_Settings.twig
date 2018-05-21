@@ -51,33 +51,33 @@
 {{ forms.colorField({
     label: 'Banner Background'|t,
     instructions: 'Background color for the modal banner'|t,
-    id: 'palette_banner',
-    name: 'palette_banner',
-    value: settings.palette_banner,
+    id: 'paletteBanner',
+    name: 'paletteBanner',
+    value: settings.paletteBanner,
 }) }}
 
 {{ forms.colorField({
     label: 'Button Background'|t,
     instructions: 'Background color for the modal button'|t,
-    id: 'palette_button',
-    name: 'palette_button',
-    value: settings.palette_button,
+    id: 'paletteButton',
+    name: 'paletteButton',
+    value: settings.paletteButton,
 }) }}
 
 {{ forms.colorField({
     label: 'Banner Text'|t,
     instructions: 'Color for the modal banner text'|t,
-    id: 'palette_banner_text',
-    name: 'palette_banner_text',
-    value: settings.palette_banner_text,
+    id: 'paletteBannerText',
+    name: 'paletteBannerText',
+    value: settings.paletteBannerText,
 }) }}
 
 {{ forms.colorField({
     label: 'Button Text'|t,
     instructions: 'Color for the modal button text'|t,
-    id: 'palette_button_text',
-    name: 'palette_button_text',
-    value: settings.palette_button_text,
+    id: 'paletteButtonText',
+    name: 'paletteButtonText',
+    value: settings.paletteButtonText,
 }) }}
 
 <hr>
@@ -85,18 +85,18 @@
 {# todo Add relations field for internal links #}
 {{ forms.textField({
     label: 'Learn More Link'|t,
-    id: 'learn_more_link',
-    name: 'learn_more_link',
-    value: settings.learn_more_link,
-    errors: settings.getErrors('learn_more_link'),
+    id: 'learnMoreLink',
+    name: 'learnMoreLink',
+    value: settings.learnMoreLink,
+    errors: settings.getErrors('learnMoreLink'),
 }) }}
 
 {{ forms.textField({
     label: 'Learn More Text'|t,
-    id: 'learn_more_link_text',
-    name: 'learn_more_link_text',
-    value: settings.learn_more_link_text,
-    errors: settings.getErrors('learn_more_link_text'),
+    id: 'learnMoreLinkText',
+    name: 'learnMoreLinkText',
+    value: settings.learnMoreLinkText,
+    errors: settings.getErrors('learnMoreLinkText'),
 }) }}
 
 {{ forms.textareaField({

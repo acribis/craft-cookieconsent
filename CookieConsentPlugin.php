@@ -41,6 +41,42 @@ class CookieConsentPlugin extends BasePlugin
     public function init()
     {
         parent::init();
+
+        if (!craft()->request->isCpRequest() && !craft()->request->isAjaxRequest) {
+            craft()->templates->includeCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css');
+            craft()->templates->includeJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js');
+
+            $configuration = '
+                palette: {
+                    popup: {
+                        background: "' . $this->getSettings()->paletteBanner . '",
+                        text: "' . $this->getSettings()->paletteBannerText . '",
+                    },
+                    button: {
+                        background: "' . ($this->getSettings()->layout === 'wire' ? 'transparent' : $this->getSettings()->paletteButton) . '",
+                        text: "' . ($this->getSettings()->layout === 'wire' ? $this->getSettings()->paletteButton : $this->getSettings()->paletteButtonText) . '",
+                        border: "' . ($this->getSettings()->layout === 'wire' ? $this->getSettings()->paletteButton : 'undefined') . '",
+                    },
+                },
+                theme: "' . $this->getSettings()->layout . '",
+                showLink: "' . ($this->getSettings()->learnMoreLink !== '' ? 'true' : 'false') . '",
+                position: "' . ($this->getSettings()->position === 'toppush' ? 'top' : $this->getSettings()->position) . '",
+                static: ' . ($this->getSettings()->position === 'toppush' ? 'true' : 'false') . ',
+                content: {
+                    message: "' . Craft::t($this->getSettings()->message) . '",
+                    dismiss: "' . Craft::t($this->getSettings()->dismiss) . '",
+                    allow: "' . Craft::t($this->getSettings()->allow) . '",
+                    link: "' . Craft::t($this->getSettings()->learnMoreLinkText) . '",
+                    href: "' . $this->getSettings()->learnMoreLink . '",
+                },
+                law: {
+                    regionalLaw: false,
+                },
+             ';
+
+            $initScript = 'window.addEventListener("load", function(){window.cookieconsent.initialise({' . $configuration . '});});';
+            craft()->templates->includeJs($initScript);
+        }
     }
 
     /**
@@ -183,12 +219,12 @@ class CookieConsentPlugin extends BasePlugin
             // todo Translate default values
             'position' => [AttributeType::String, 'default' => 'bottom'],
             'layout' => [AttributeType::String, 'default' => 'block'],
-            'palette_banner' => [AttributeType::String, 'default' => '#000000'],
-            'palette_button' => [AttributeType::String, 'default' => '#f1d600'],
-            'palette_banner_text' => [AttributeType::String, 'default' => '#ffffff'],
-            'palette_button_text' => [AttributeType::String, 'default' => '#000000'],
-            'learn_more_link' => [AttributeType::String, 'default' => 'http://cookiesandyou.com/'],
-            'learn_more_link_text' => [AttributeType::String, 'default' => 'Learn More'],
+            'paletteBanner' => [AttributeType::String, 'default' => '#000000'],
+            'paletteButton' => [AttributeType::String, 'default' => '#f1d600'],
+            'paletteBannerText' => [AttributeType::String, 'default' => '#ffffff'],
+            'paletteButtonText' => [AttributeType::String, 'default' => '#000000'],
+            'learnMoreLink' => [AttributeType::String, 'default' => 'http://cookiesandyou.com/'],
+            'learnMoreLinkText' => [AttributeType::String, 'default' => 'Learn More'],
             'message' => [AttributeType::String, 'default' => 'This website uses cookies to ensure you get the best experience on our website.'],
             'dismiss' => [AttributeType::String, 'default' => 'Got it!'],
             'allow' => [AttributeType::String, 'default' => 'Allow cookies'],
