@@ -43,8 +43,8 @@ class CookieConsentPlugin extends BasePlugin
         parent::init();
 
         if (!craft()->request->isCpRequest() && !craft()->request->isAjaxRequest) {
-            craft()->templates->includeCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css');
-            craft()->templates->includeJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js');
+            craft()->templates->includeCssFile($this->getSettings()->cssCdn);
+            craft()->templates->includeJsFile($this->getSettings()->jsCdn);
 
             $configuration = [
                 'palette' => [
@@ -216,6 +216,9 @@ class CookieConsentPlugin extends BasePlugin
     protected function defineSettings()
     {
         return array(
+            'cssCdn' => [AttributeType::String, 'default' => '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css'],
+            'jsCdn' => [AttributeType::String, 'default' => '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js'],
+
             // todo Translate default values
             'position' => [AttributeType::String, 'default' => 'bottom'],
             'layout' => [AttributeType::String, 'default' => 'block'],
