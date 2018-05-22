@@ -1,0 +1,15 @@
+{
+	"name": "acribis/cookieconsent",
+	"description": "This is a generic Craft CMS plugin",
+	"type": "craft-plugin",
+	"authors": [
+		{
+			"name": "acribis AG",
+			"homepage": "https://acribis.ch/"
+		}
+	],
+	"require": {
+      "roave/security-advisories": "dev-master",
+      "composer/installers": "~1.0"
+	}
+}

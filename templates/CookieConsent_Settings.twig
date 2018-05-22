@@ -1,0 +1,121 @@
+{#
+/**
+ * Cookie Consent plugin for Craft CMS
+ *
+ * Cookie Consent Settings.twig
+ *
+ * @author    acribis AG
+ * @copyright Copyright (c) 2018 acribis AG
+ * @link      https://acribis.ch/
+ * @package   CookieConsent
+ * @since     0.1.0
+ */
+#}
+
+{% import '_includes/forms' as forms %}
+
+{% includeCssResource 'cookieconsent/css/CookieConsent_Style.css' %}
+{% includeJsResource 'cookieconsent/js/CookieConsent_Script.js' %}
+
+{{ forms.selectField({
+    label: 'Position'|t,
+    id: 'position',
+    name: 'position',
+    options: {
+        top: 'Top'|t,
+        toppush: 'Top Pushdown'|t,
+        bottom: 'Bottom'|t,
+        left: 'Left'|t,
+        right: 'Right'|t,
+        'bottom-left': 'Bottom Left'|t,
+        'bottom-right':'Bottom Right'|t,
+    },
+    value: settings.position,
+}) }}
+
+{{ forms.selectField({
+    label: 'Layout'|t,
+    id: 'layout',
+    name: 'layout',
+    options: {
+        block: 'Block'|t,
+        classic: 'Classic'|t,
+        edgeless: 'Edgeless'|t,
+        wire: 'Wire'|t
+    },
+    value: settings.layout,
+}) }}
+
+<hr>
+
+{{ forms.colorField({
+    label: 'Banner Background'|t,
+    instructions: 'Background color for the modal banner'|t,
+    id: 'paletteBanner',
+    name: 'paletteBanner',
+    value: settings.paletteBanner,
+}) }}
+
+{{ forms.colorField({
+    label: 'Button Background'|t,
+    instructions: 'Background color for the modal button'|t,
+    id: 'paletteButton',
+    name: 'paletteButton',
+    value: settings.paletteButton,
+}) }}
+
+{{ forms.colorField({
+    label: 'Banner Text'|t,
+    instructions: 'Color for the modal banner text'|t,
+    id: 'paletteBannerText',
+    name: 'paletteBannerText',
+    value: settings.paletteBannerText,
+}) }}
+
+{{ forms.colorField({
+    label: 'Button Text'|t,
+    instructions: 'Color for the modal button text'|t,
+    id: 'paletteButtonText',
+    name: 'paletteButtonText',
+    value: settings.paletteButtonText,
+}) }}
+
+<hr>
+
+<div class="field" id="settings-showLink-field">
+    <div class="heading">
+        <label id="settings-showLink-label" for="settings-showLink">{{ 'Show Link'|t }}</label>
+    </div>
+
+    {{ forms.lightswitch( {
+        label: 'Show Link'|t,
+        id: 'showLink',
+        name: 'showLink',
+        on : settings.showLink,
+    } ) }}
+</div>
+
+<div class="field" id="settings-learnMoreLink-field">
+    <div class="heading">
+        <label id="settings-learnMoreLink-label" for="settings-learnMoreLink">{{ 'Learn More Link'|t }}</label>
+    </div>
+
+    {{ forms.elementSelect({
+        label: 'Learn More Link'|t,
+        id: 'learnMoreLink',
+        name: 'learnMoreLink',
+        elementType: craft.elements.getElementType('Entry'),
+        limit: 1,
+        elements: craft.entries.id(settings.learnMoreLink),
+        errors: settings.getErrors('learnMoreLink'),
+    }) }}
+</div>
+
+{{ forms.textareaField({
+    label: 'Overwrite CSS'|t,
+    id: 'css',
+    name: 'css',
+    value: settings.css,
+    errors: settings.getErrors('css'),
+    rows: 10,
+}) }}
