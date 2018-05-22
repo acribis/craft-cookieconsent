@@ -1,6 +1,6 @@
 # Cookie Consent Changelog
 
-## 0.1.0 -- 2018-05-17
+## 1.0.0-beta.1 -- 2018-05-22
 
 * Initial release
 
