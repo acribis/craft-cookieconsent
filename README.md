@@ -32,6 +32,7 @@ Cookie Consent works on Craft 2.4.x and Craft 2.5.x.
 
 Some things to do, and ideas for potential features:
 
+* Add option for hosted cookieconsent package
 * Release it
 
 Brought to you by [acribis AG](https://acribis.ch/)
