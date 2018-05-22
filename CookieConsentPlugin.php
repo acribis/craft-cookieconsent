@@ -63,10 +63,11 @@ class CookieConsentPlugin extends BasePlugin
                 'position' => ($this->getSettings()->position === 'toppush' ? 'top' : $this->getSettings()->position),
                 'static' => $this->getSettings()->position === 'toppush',
                 'content' => [
-                    'message' => Craft::t($this->getSettings()->message),
-                    'dismiss' => Craft::t($this->getSettings()->dismiss),
-                    'allow' => Craft::t($this->getSettings()->allow),
-                    'link' => Craft::t($this->getSettings()->learnMoreLinkText),
+                    'message' => craft()->config->getLocalized('message', craft()->locale->id, 'cookieconsent'),
+                    'dismiss' => craft()->config->getLocalized('dismiss', craft()->locale->id, 'cookieconsent'),
+                    'allow' => craft()->config->getLocalized('allow', craft()->locale->id, 'cookieconsent'),
+                    'deny' => craft()->config->getLocalized('deny', craft()->locale->id, 'cookieconsent'),
+                    'link' => craft()->config->getLocalized('learnMoreLinkText', craft()->locale->id, 'cookieconsent'),
                     'href' => $this->getSettings()->learnMoreLink,
                 ],
                 'law' => [
@@ -227,11 +228,6 @@ class CookieConsentPlugin extends BasePlugin
             'paletteBannerText' => [AttributeType::String, 'default' => '#ffffff'],
             'paletteButtonText' => [AttributeType::String, 'default' => '#000000'],
             'learnMoreLink' => [AttributeType::String, 'default' => 'http://cookiesandyou.com/'],
-            'learnMoreLinkText' => [AttributeType::String, 'default' => 'Learn More'],
-            'message' => [AttributeType::String, 'default' => 'This website uses cookies to ensure you get the best experience on our website.'],
-            'dismiss' => [AttributeType::String, 'default' => 'Got it!'],
-            'allow' => [AttributeType::String, 'default' => 'Allow cookies'],
-            'deny' => [AttributeType::String, 'default' => 'Decline'],
         );
     }
 

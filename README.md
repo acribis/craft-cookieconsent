@@ -22,7 +22,7 @@ Cookie Consent works on Craft 2.4.x and Craft 2.5.x.
 
 ## Configuring Cookie Consent
 
--Insert text here-
+The popup is translated into four languages by default (en, de, fr, es). To add more, copy and rename `config.php` to `craft/config/cookieconsent.php` and extend the existing values.
 
 ## Using Cookie Consent
 
