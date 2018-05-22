@@ -46,35 +46,35 @@ class CookieConsentPlugin extends BasePlugin
             craft()->templates->includeCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css');
             craft()->templates->includeJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js');
 
-            $configuration = '
-                palette: {
-                    popup: {
-                        background: "' . $this->getSettings()->paletteBanner . '",
-                        text: "' . $this->getSettings()->paletteBannerText . '",
-                    },
-                    button: {
-                        background: "' . ($this->getSettings()->layout === 'wire' ? 'transparent' : $this->getSettings()->paletteButton) . '",
-                        text: "' . ($this->getSettings()->layout === 'wire' ? $this->getSettings()->paletteButton : $this->getSettings()->paletteButtonText) . '",
-                        border: "' . ($this->getSettings()->layout === 'wire' ? $this->getSettings()->paletteButton : 'undefined') . '",
-                    },
-                },
-                theme: "' . $this->getSettings()->layout . '",
-                showLink: "' . ($this->getSettings()->learnMoreLink !== '' ? 'true' : 'false') . '",
-                position: "' . ($this->getSettings()->position === 'toppush' ? 'top' : $this->getSettings()->position) . '",
-                static: ' . ($this->getSettings()->position === 'toppush' ? 'true' : 'false') . ',
-                content: {
-                    message: "' . Craft::t($this->getSettings()->message) . '",
-                    dismiss: "' . Craft::t($this->getSettings()->dismiss) . '",
-                    allow: "' . Craft::t($this->getSettings()->allow) . '",
-                    link: "' . Craft::t($this->getSettings()->learnMoreLinkText) . '",
-                    href: "' . $this->getSettings()->learnMoreLink . '",
-                },
-                law: {
-                    regionalLaw: false,
-                },
-             ';
+            $configuration = [
+                'palette' => [
+                    'popup' => [
+                        'background' => $this->getSettings()->paletteBanner,
+                        'text' => $this->getSettings()->paletteBannerText,
+                    ],
+                    'button' => [
+                        'background' => ($this->getSettings()->layout === 'wire' ? 'transparent' : $this->getSettings()->paletteButton),
+                        'text' => ($this->getSettings()->layout === 'wire' ? $this->getSettings()->paletteButton : $this->getSettings()->paletteButtonText),
+                        'border' => ($this->getSettings()->layout === 'wire' ? $this->getSettings()->paletteButton : 'undefined'),
+                    ],
+                ],
+                'theme' => $this->getSettings()->layout,
+                'showLink' => $this->getSettings()->learnMoreLink !== '',
+                'position' => ($this->getSettings()->position === 'toppush' ? 'top' : $this->getSettings()->position),
+                'static' => $this->getSettings()->position === 'toppush',
+                'content' => [
+                    'message' => Craft::t($this->getSettings()->message),
+                    'dismiss' => Craft::t($this->getSettings()->dismiss),
+                    'allow' => Craft::t($this->getSettings()->allow),
+                    'link' => Craft::t($this->getSettings()->learnMoreLinkText),
+                    'href' => $this->getSettings()->learnMoreLink,
+                ],
+                'law' => [
+                    'regionalLaw' => false,
+                ],
+            ];
 
-            $initScript = 'window.addEventListener("load", function(){window.cookieconsent.initialise({' . $configuration . '});});';
+            $initScript = 'window.addEventListener("load", function(){window.cookieconsent.initialise(' . json_encode((array) $configuration) . ');});';
             craft()->templates->includeJs($initScript);
         }
     }
