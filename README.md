@@ -33,6 +33,7 @@ The popup is translated into four languages by default (en, de, fr, es). To add 
 Some things to do, and ideas for potential features:
 
 * Add option for hosted cookieconsent package
+* Custom Themes
 * Release it
 
 Brought to you by [acribis AG](https://acribis.ch/)

@@ -59,7 +59,7 @@ class CookieConsentPlugin extends BasePlugin
                     ],
                 ],
                 'theme' => $this->getSettings()->layout,
-                'showLink' => $this->getSettings()->learnMoreLink !== '',
+                'showLink' => $this->getSettings()->showLink,
                 'position' => ($this->getSettings()->position === 'toppush' ? 'top' : $this->getSettings()->position),
                 'static' => $this->getSettings()->position === 'toppush',
                 'content' => [
@@ -68,7 +68,7 @@ class CookieConsentPlugin extends BasePlugin
                     'allow' => craft()->config->getLocalized('allow', craft()->locale->id, 'cookieconsent'),
                     'deny' => craft()->config->getLocalized('deny', craft()->locale->id, 'cookieconsent'),
                     'link' => craft()->config->getLocalized('learnMoreLinkText', craft()->locale->id, 'cookieconsent'),
-                    'href' => $this->getSettings()->learnMoreLink,
+                    'href' =>  ($this->getSettings()->learnMoreLink !== '' ? craft()->elements->getElementById($this->getSettings()->learnMoreLink[0])->getUrl() : craft()->config->getLocalized('learnMoreLink', craft()->locale->id, 'cookieconsent')),
                 ],
                 'law' => [
                     'regionalLaw' => false,
@@ -76,6 +76,7 @@ class CookieConsentPlugin extends BasePlugin
             ];
 
             $initScript = 'window.addEventListener("load", function(){window.cookieconsent.initialise(' . json_encode((array) $configuration) . ');});';
+            craft()->templates->includeCss($this->getSettings()->css);
             craft()->templates->includeJs($initScript);
         }
     }
@@ -227,7 +228,9 @@ class CookieConsentPlugin extends BasePlugin
             'paletteButton' => [AttributeType::String, 'default' => '#f1d600'],
             'paletteBannerText' => [AttributeType::String, 'default' => '#ffffff'],
             'paletteButtonText' => [AttributeType::String, 'default' => '#000000'],
-            'learnMoreLink' => [AttributeType::String, 'default' => 'http://cookiesandyou.com/'],
+            'showLink' => [AttributeType::Bool, 'default' => true],
+            'learnMoreLink' => [AttributeType::Mixed, 'default' => 'http://cookiesandyou.com/'],
+            'css' => [AttributeType::String],
         );
     }
 
@@ -239,7 +242,7 @@ class CookieConsentPlugin extends BasePlugin
     public function getSettingsHtml()
     {
        return craft()->templates->render('cookieconsent/CookieConsent_Settings', array(
-           'settings' => $this->getSettings()
+           'settings' => $this->getSettings(),
        ));
     }
 

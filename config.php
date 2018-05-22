@@ -1,6 +1,8 @@
 <?php
 
 return array(
+    'learnMoreLink' => 'http://cookiesandyou.com/',
+
     'message' => array(
         'en' => 'This website uses cookies to ensure you get the best experience on our website.',
         'de' => 'Diese Website verwendet Cookies um sicherzustellen, dass Sie die beste Erfahrung auf unserer Website erhalten.',

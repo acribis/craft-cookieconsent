@@ -82,11 +82,40 @@
 
 <hr>
 
-{# todo Add relations field for internal links #}
-{{ forms.textField({
-    label: 'Learn More Link'|t,
-    id: 'learnMoreLink',
-    name: 'learnMoreLink',
-    value: settings.learnMoreLink,
-    errors: settings.getErrors('learnMoreLink'),
+<div class="field" id="settings-showLink-field">
+    <div class="heading">
+        <label id="settings-showLink-label" for="settings-showLink">{{ 'Show Link'|t }}</label>
+    </div>
+
+    {{ forms.lightswitch( {
+        label: 'Show Link'|t,
+        id: 'showLink',
+        name: 'showLink',
+        on : settings.showLink,
+    } ) }}
+</div>
+
+<div class="field" id="settings-learnMoreLink-field">
+    <div class="heading">
+        <label id="settings-learnMoreLink-label" for="settings-learnMoreLink">{{ 'Learn More Link'|t }}</label>
+    </div>
+
+    {{ forms.elementSelect({
+        label: 'Learn More Link'|t,
+        id: 'learnMoreLink',
+        name: 'learnMoreLink',
+        elementType: craft.elements.getElementType('Entry'),
+        limit: 1,
+        elements: craft.entries.id(settings.learnMoreLink),
+        errors: settings.getErrors('learnMoreLink'),
+    }) }}
+</div>
+
+{{ forms.textareaField({
+    label: 'Overwrite CSS'|t,
+    id: 'css',
+    name: 'css',
+    value: settings.css,
+    errors: settings.getErrors('css'),
+    rows: 10,
 }) }}
