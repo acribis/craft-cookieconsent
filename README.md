@@ -1,6 +1,6 @@
 # Cookie Consent plugin for Craft CMS
 
-This is a generic Craft CMS plugin
+Cookie Consent uses the [Cookie Consent](https://github.com/insites/cookieconsent/) Javascript library.
 
 ![Screenshot](resources/screenshots/plugin_logo.png)
 
