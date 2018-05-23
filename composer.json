@@ -1,15 +1,40 @@
 {
-	"name": "acribis/cookieconsent",
-	"description": "This is a generic Craft CMS plugin",
-	"type": "craft-plugin",
-	"authors": [
-		{
-			"name": "acribis AG",
-			"homepage": "https://acribis.ch/"
-		}
-	],
-	"require": {
-      "roave/security-advisories": "dev-master",
-      "composer/installers": "~1.0"
-	}
+    "name": "acribis/cookie-consent",
+    "description": "This is a generic Craft CMS plugin",
+    "type": "craft-plugin",
+    "version": "2.0.0-beta.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "cookie consent"
+    ],
+    "support": {
+        "docs": "https://github.com/acribis/cookie-consent/blob/master/README.md",
+        "issues": "https://github.com/acribis/cookie-consent/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "acribis AG",
+            "homepage": "https://acribis.ch/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "acribis\\cookieconsent\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Cookie Consent",
+        "handle": "cookie-consent",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/acribis/cookie-consent/master/CHANGELOG.md",
+        "class": "acribis\\cookieconsent\\CookieConsent"
+    }
 }

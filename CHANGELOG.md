@@ -1,7 +1,9 @@
 # Cookie Consent Changelog
 
-## 1.0.0-beta.1 -- 2018-05-22
+All notable changes to this project will be documented in this file.
 
-* Initial release
+The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-Brought to you by [acribis AG](https://acribis.ch/)
+## 2.0.0-beta.1 - 2018-05-23
+### Added
+- Initial release
