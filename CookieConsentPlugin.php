@@ -68,7 +68,7 @@ class CookieConsentPlugin extends BasePlugin
                     'allow' => craft()->config->getLocalized('allow', craft()->locale->id, 'cookieconsent'),
                     'deny' => craft()->config->getLocalized('deny', craft()->locale->id, 'cookieconsent'),
                     'link' => craft()->config->getLocalized('learnMoreLinkText', craft()->locale->id, 'cookieconsent'),
-                    'href' =>  ($this->getSettings()->learnMoreLink !== '' ? craft()->elements->getElementById($this->getSettings()->learnMoreLink[0])->getUrl() : craft()->config->getLocalized('learnMoreLink', craft()->locale->id, 'cookieconsent')),
+                    'href' =>  ($this->getSettings()->learnMoreLink !== '' ? craft()->config->getLocalized('learnMoreLink', craft()->locale->id, 'cookieconsent') : craft()->elements->getElementById($this->getSettings()->learnMoreLink[0])->getUrl()),
                 ],
                 'law' => [
                     'regionalLaw' => false,
