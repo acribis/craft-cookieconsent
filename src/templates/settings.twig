@@ -1,0 +1,121 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Cookie Consent plugin for Craft CMS 3.x
+ *
+ * Cookie Consent Settings.twig
+ *
+ * @author    acribis AG
+ * @copyright Copyright (c) 2018 acribis AG
+ * @link      https://acribis.ch/
+ * @package   CookieConsent
+ * @since     2.0.0-beta.1
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("acribis\\cookieconsent\\assetbundles\\cookieconsent\\CookieConsentAsset") %}
+
+{{ forms.selectField({
+    label: 'Position'|t,
+    instructions: 'Where the popup is displayed'|t,
+    id: 'position',
+    name: 'position',
+    options: {
+        top: 'Top'|t,
+        toppush: 'Top Pushdown'|t,
+        bottom: 'Bottom'|t,
+        left: 'Left'|t,
+        right: 'Right'|t,
+        'bottom-left': 'Bottom Left'|t,
+        'bottom-right':'Bottom Right'|t,
+    },
+    value: settings['position'],
+    errors: settings.getErrors('position'),
+}) }}
+
+{{ forms.selectField({
+    label: 'Layout'|t,
+    instructions: 'The styling of the popup'|t,
+    id: 'layout',
+    name: 'layout',
+    options: {
+        block: 'Block'|t,
+        classic: 'Classic'|t,
+        edgeless: 'Edgeless'|t,
+        wire: 'Wire'|t
+    },
+    value: settings['layout'],
+    errors: settings.getErrors('layout'),
+}) }}
+
+<hr>
+
+{{ forms.colorField({
+    label: 'Banner Background'|t,
+    instructions: 'The background color of the popup'|t,
+    id: 'paletteBanner',
+    name: 'paletteBanner',
+    value: settings['paletteBanner'],
+    errors: settings.getErrors('paletteBanner'),
+}) }}
+
+{{ forms.colorField({
+    label: 'Button Background'|t,
+    instructions: 'The background color for the buttons'|t,
+    id: 'paletteButton',
+    name: 'paletteButton',
+    value: settings['paletteButton'],
+    errors: settings.getErrors('paletteButton'),
+}) }}
+
+{{ forms.colorField({
+    label: 'Banner Text'|t,
+    instructions: 'Text color of the popup'|t,
+    id: 'paletteBannerText',
+    name: 'paletteBannerText',
+    value: settings['paletteBannerText'],
+    errors: settings.getErrors('paletteBannerText'),
+}) }}
+
+{{ forms.colorField({
+    label: 'Button Text'|t,
+    instructions: 'Text color for the buttons'|t,
+    id: 'paletteButtonText',
+    name: 'paletteButtonText',
+    value: settings['paletteButtonText'],
+    errors: settings.getErrors('paletteButtonText'),
+}) }}
+
+<hr>
+
+{{ forms.lightswitchField( {
+    label: 'Show Link'|t,
+    id: 'showLink',
+    name: 'showLink',
+    on : settings['showLink'],
+}) }}
+
+{{ craft.app.entries.entryById(1) }}
+
+{{ forms.elementSelectField({
+    label: 'Learn More Link'|t,
+    id: 'learnMoreLink',
+    name: 'learnMoreLink',
+    sources: craft.app.elements.elementTypeByRefHandle('Entry'),
+    elementType: craft.app.elements.elementTypeByRefHandle('Entry'),
+    limit: 1,
+    elements: [craft.app.entries.entryById(settings['learnMoreLink'][0])]
+}) }}
+
+<hr>
+
+{{ forms.textareaField({
+    label: 'Overwrite CSS'|t,
+    id: 'css',
+    name: 'css',
+    value: settings['css'],
+    errors: settings.getErrors('css'),
+    rows: 10,
+}) }}
