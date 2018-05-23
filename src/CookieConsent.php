@@ -19,7 +19,6 @@ use craft\services\Plugins;
 use craft\events\PluginEvent;
 
 use yii\base\Event;
-use yii\web\Cookie;
 
 /**
  * Craft plugins are very much like little applications in and of themselves. We’ve made
@@ -109,7 +108,7 @@ class CookieConsent extends Plugin
                     'allow' => ConfigHelper::localizedValue($config['allow'], Craft::$app->locale->id),
                     'deny' => ConfigHelper::localizedValue($config['deny'], Craft::$app->locale->id),
                     'link' => ConfigHelper::localizedValue($config['learnMoreLinkText'], Craft::$app->locale->id),
-                    'href' => (CookieConsent::getSettings()->learnMoreLink !== '' ? Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl() : ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id)),
+                    'href' => (CookieConsent::getSettings()->learnMoreLink !== '' ? ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
                 ],
                 'law' => [
                     'regionalLaw' => false,
