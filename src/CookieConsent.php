@@ -111,11 +111,6 @@ class CookieConsent extends Plugin
                 'law' => [
                     'regionalLaw' => false,
                 ],
-                'onPopupOpen' => 'function() {
-                    if (window.innerWidth >= 415) {
-                        window.cookieconsent.utils.isMobile = () => false;
-                    }
-                }',
             ];
 
             Craft::$app->view->registerJs('window.addEventListener("load", function(){window.cookieconsent.initialise(' . json_encode((array) $configuration) . ');});');
