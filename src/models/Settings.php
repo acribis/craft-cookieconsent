@@ -48,7 +48,7 @@ class Settings extends Model
     public $paletteBannerText = '#ffffff';
     public $paletteButtonText = '#000000';
     public $showLink = true;
-    public $learnMoreLink = 'http://cookiesandyou.com/';
+    public $learnMoreLink;
     public $css;
 
     // Public Methods

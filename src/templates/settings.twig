@@ -106,7 +106,7 @@
     sources: craft.app.elements.elementTypeByRefHandle('Entry'),
     elementType: craft.app.elements.elementTypeByRefHandle('Entry'),
     limit: 1,
-    elements: [craft.app.entries.entryById(settings['learnMoreLink'][0])]
+    elements: [(settings['learnMoreLink']|length ? craft.app.entries.entryById(settings['learnMoreLink'][0]) : null)]
 }) }}
 
 <hr>
