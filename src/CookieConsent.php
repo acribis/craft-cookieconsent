@@ -108,11 +108,16 @@ class CookieConsent extends Plugin
                     'allow' => ConfigHelper::localizedValue($config['allow'], Craft::$app->locale->id),
                     'deny' => ConfigHelper::localizedValue($config['deny'], Craft::$app->locale->id),
                     'link' => ConfigHelper::localizedValue($config['learnMoreLinkText'], Craft::$app->locale->id),
-                    'href' => (CookieConsent::getSettings()->learnMoreLink !== '' ? ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
+                    'href' => (CookieConsent::getSettings()->learnMoreLink === '' ? ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
                 ],
                 'law' => [
                     'regionalLaw' => false,
                 ],
+                'onPopupOpen' => 'function() {
+                    if (window.innerWidth >= 415) {
+                        window.cookieconsent.utils.isMobile = () => false;
+                    }
+                }',
             ];
 
             Craft::$app->view->registerJs('window.addEventListener("load", function(){window.cookieconsent.initialise(' . json_encode((array) $configuration) . ');});');
