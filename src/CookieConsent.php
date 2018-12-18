@@ -81,8 +81,8 @@ class CookieConsent extends Plugin
         $config = Craft::$app->config->getConfigFromFile($this->handle);
 
         if (!Craft::$app->request->isCpRequest && !Craft::$app->request->isAjax) {
-            Craft::$app->view->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css');
-            Craft::$app->view->registerJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js');
+            Craft::$app->view->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css');
+            Craft::$app->view->registerJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js');
 
             $configuration = [
                 'palette' => [
