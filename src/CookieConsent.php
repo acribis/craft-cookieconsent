@@ -106,7 +106,7 @@ class CookieConsent extends Plugin
                     'allow' => ConfigHelper::localizedValue($config['allow'], Craft::$app->locale->id),
                     'deny' => ConfigHelper::localizedValue($config['deny'], Craft::$app->locale->id),
                     'link' => ConfigHelper::localizedValue($config['learnMoreLinkText'], Craft::$app->locale->id),
-                    'href' => (CookieConsent::getSettings()->learnMoreLink === '' ? ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
+                    'href' => (CookieConsent::getSettings()->learnMoreLink === '' ? ConfigHelper::localizedValue(($config['link'] ?? null), Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
                 ],
                 'law' => [
                     'regionalLaw' => false,
