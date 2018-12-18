@@ -84,8 +84,6 @@ class CookieConsent extends Plugin
             Craft::$app->view->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css');
             Craft::$app->view->registerJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js');
 
-            $message = ConfigHelper::localizedValue($config['message'], Craft::$app->locale->id);
-
             $configuration = [
                 'palette' => [
                     'popup' => [
@@ -108,7 +106,7 @@ class CookieConsent extends Plugin
                     'allow' => ConfigHelper::localizedValue($config['allow'], Craft::$app->locale->id),
                     'deny' => ConfigHelper::localizedValue($config['deny'], Craft::$app->locale->id),
                     'link' => ConfigHelper::localizedValue($config['learnMoreLinkText'], Craft::$app->locale->id),
-                    'href' => (CookieConsent::getSettings()->learnMoreLink !== '' ? ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
+                    'href' => (CookieConsent::getSettings()->learnMoreLink === '' ? ConfigHelper::localizedValue($config['link'], Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
                 ],
                 'law' => [
                     'regionalLaw' => false,
@@ -116,6 +114,7 @@ class CookieConsent extends Plugin
             ];
 
             Craft::$app->view->registerJs('window.addEventListener("load", function(){window.cookieconsent.initialise(' . json_encode((array) $configuration) . ');});');
+            Craft::$app->view->registerCss(CookieConsent::getSettings()->css);
         }
 
         // Do something after we're installed
