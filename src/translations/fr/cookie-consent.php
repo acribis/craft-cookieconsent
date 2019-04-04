@@ -21,5 +21,10 @@
  * @since     2.0.0-beta.1
  */
 return [
-    'Cookie Consent plugin loaded' => 'Cookie Consent plugin loaded',
+    'This website uses cookies to ensure you get the best experience on our website.' =>
+        'Ce site utilise des cookies pour vous assurer la meilleure expérience sur notre site.',
+    'Learn More' => 'Apprendre encore plus',
+    'Dismiss Notification' => 'Masquer la notification',
+    'Allow Cookies' => 'Autorise les cookies',
+    'Decline' => 'Déclin',
 ];

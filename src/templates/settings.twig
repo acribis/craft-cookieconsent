@@ -90,6 +90,20 @@
 
 <hr>
 
+{{ forms.selectField({
+    label: 'Type'|t,
+    instructions: 'The compliance type'|t,
+    id: 'type',
+    name: 'type',
+    options: {
+        '': 'Informational'|t,
+        'opt-out': 'Opt-out'|t,
+        'opt-in': 'Opt-in'|t,
+    },
+    value: settings['type'],
+    errors: settings.getErrors('type'),
+}) }}
+
 {{ forms.lightswitchField( {
     label: 'Show Link'|t,
     id: 'showLink',
@@ -104,10 +118,19 @@
     sources: craft.app.elements.elementTypeByRefHandle('Entry'),
     elementType: craft.app.elements.elementTypeByRefHandle('Entry'),
     limit: 1,
-    elements: settings['learnMoreLink'],
+    elements: [(settings['learnMoreLink']|length ? craft.app.entries.entryById(settings['learnMoreLink']) : null)]
 }) }}
 
 <hr>
+
+{{ forms.textField({
+    label: 'Container Selector'|t,
+    id: 'containerSelector',
+    name: 'containerSelector',
+    value: settings['containerSelector'],
+    errors: settings.getErrors('containerSelector'),
+    size: 30
+}) }}
 
 {{ forms.textareaField({
     label: 'Overwrite CSS'|t,
