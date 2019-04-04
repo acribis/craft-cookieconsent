@@ -10,15 +10,17 @@
 
 namespace acribis\cookieconsent;
 
+use acribis\cookieconsent\assetbundles\CookieConsent\CookieConsentAsset;
 use acribis\cookieconsent\models\Settings;
 
 use Craft;
 use craft\base\Plugin;
-use craft\helpers\ConfigHelper;
+use craft\elements\Entry;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 
 use yii\base\Event;
+use yii\base\InvalidConfigException;
 
 /**
  * Craft plugins are very much like little applications in and of themselves. We’ve made
@@ -78,43 +80,11 @@ class CookieConsent extends Plugin
     {
         parent::init();
         self::$plugin = $this;
-        $config = Craft::$app->config->getConfigFromFile($this->handle);
+        $request = Craft::$app->getRequest();
 
-        if (!Craft::$app->request->isCpRequest && !Craft::$app->request->isAjax) {
-            Craft::$app->view->registerCssFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css');
-            Craft::$app->view->registerJsFile('//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js');
-
-            $configuration = [
-                'palette' => [
-                    'popup' => [
-                        'background' => CookieConsent::getSettings()->paletteBanner,
-                        'text' => CookieConsent::getSettings()->paletteBannerText,
-                    ],
-                    'button' => [
-                        'background' => (CookieConsent::getSettings()->layout === 'wire' ? 'transparent' : CookieConsent::getSettings()->paletteButton),
-                        'text' => (CookieConsent::getSettings()->layout === 'wire' ? CookieConsent::getSettings()->paletteButton : CookieConsent::getSettings()->paletteButtonText),
-                        'border' => (CookieConsent::getSettings()->layout === 'wire' ? CookieConsent::getSettings()->paletteButton : 'undefined'),
-                    ],
-                ],
-                'theme' => CookieConsent::getSettings()->layout,
-                'showLink' => CookieConsent::getSettings()->showLink,
-                'position' => (CookieConsent::getSettings()->position === 'toppush' ? 'top' : CookieConsent::getSettings()->position),
-                'static' => CookieConsent::getSettings()->position === 'toppush',
-                'content' => [
-                    'message' => ConfigHelper::localizedValue($config['message'], Craft::$app->locale->id),
-                    'dismiss' => ConfigHelper::localizedValue($config['dismiss'], Craft::$app->locale->id),
-                    'allow' => ConfigHelper::localizedValue($config['allow'], Craft::$app->locale->id),
-                    'deny' => ConfigHelper::localizedValue($config['deny'], Craft::$app->locale->id),
-                    'link' => ConfigHelper::localizedValue($config['learnMoreLinkText'], Craft::$app->locale->id),
-                    'href' => (CookieConsent::getSettings()->learnMoreLink === '' ? ConfigHelper::localizedValue(($config['link'] ?? null), Craft::$app->locale->id) : Craft::$app->elements->getElementById(CookieConsent::getSettings()->learnMoreLink[0])->getUrl()),
-                ],
-                'law' => [
-                    'regionalLaw' => false,
-                ],
-            ];
-
-            Craft::$app->view->registerJs('window.addEventListener("load", function(){window.cookieconsent.initialise(' . json_encode((array) $configuration) . ');});');
-            Craft::$app->view->registerCss(CookieConsent::getSettings()->css);
+        // Register asset bundle only for non-console site requests
+        if ($request->getIsSiteRequest() && !$request->getIsConsoleRequest()) {
+            $this->registerFrontendAssets();
         }
 
         // Do something after we're installed
@@ -128,32 +98,95 @@ class CookieConsent extends Plugin
             }
         );
 
-/**
- * Logging in Craft involves using one of the following methods:
- *
- * Craft::trace(): record a message to trace how a piece of code runs. This is mainly for development use.
- * Craft::info(): record a message that conveys some useful information.
- * Craft::warning(): record a warning message that indicates something unexpected has happened.
- * Craft::error(): record a fatal error that should be investigated as soon as possible.
- *
- * Unless `devMode` is on, only Craft::warning() & Craft::error() will log to `craft/storage/logs/web.log`
- *
- * It's recommended that you pass in the magic constant `__METHOD__` as the second parameter, which sets
- * the category to the method (prefixed with the fully qualified class name) where the constant appears.
- *
- * To enable the Yii debug toolbar, go to your user account in the AdminCP and check the
- * [] Show the debug toolbar on the front end & [] Show the debug toolbar on the Control Panel
- *
- * http://www.yiiframework.com/doc-2.0/guide-runtime-logging.html
- */
+        /**
+         * Logging in Craft involves using one of the following methods:
+         *
+         * Craft::trace(): record a message to trace how a piece of code runs. This is mainly for development use.
+         * Craft::info(): record a message that conveys some useful information.
+         * Craft::warning(): record a warning message that indicates something unexpected has happened.
+         * Craft::error(): record a fatal error that should be investigated as soon as possible.
+         *
+         * Unless `devMode` is on, only Craft::warning() & Craft::error() will log to `craft/storage/logs/web.log`
+         *
+         * It's recommended that you pass in the magic constant `__METHOD__` as the second parameter, which sets
+         * the category to the method (prefixed with the fully qualified class name) where the constant appears.
+         *
+         * To enable the Yii debug toolbar, go to your user account in the AdminCP and check the
+         * [] Show the debug toolbar on the front end & [] Show the debug toolbar on the Control Panel
+         *
+         * http://www.yiiframework.com/doc-2.0/guide-runtime-logging.html
+         */
         Craft::info(
-            Craft::t(
-                'cookie-consent',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
+            Craft::t('cookie-consent', '{name} plugin loaded', [
+                'name' => $this->name,
+            ]),
             __METHOD__
         );
+    }
+
+    /**
+     * @throws InvalidConfigException
+     */
+    public function registerFrontendAssets()
+    {
+        Craft::$app->view->registerAssetBundle(CookieConsentAsset::class);
+        Craft::$app->view->registerCss($this->settings->css);
+
+        Craft::$app->view->registerJsVar('cookieconsentConfig', [
+            'container' => $this->settings->containerSelector,
+            'palette' => [
+                'popup' => [
+                    'background' => $this->getSettings()->paletteBanner,
+                    'text' => $this->getSettings()->paletteBannerText,
+                ],
+                'button' => [
+                    'background' =>
+                        $this->getSettings()->layout === 'wire'
+                            ? 'transparent'
+                            : $this->getSettings()->paletteButton,
+                    'text' =>
+                        $this->getSettings()->layout === 'wire'
+                            ? $this->getSettings()->paletteButton
+                            : $this->getSettings()->paletteButtonText,
+                    'border' =>
+                        $this->getSettings()->layout === 'wire'
+                            ? $this->getSettings()->paletteButton
+                            : 'undefined',
+                ],
+            ],
+            'theme' => $this->getSettings()->layout,
+            'showLink' => $this->getSettings()->showLink,
+            'position' =>
+                $this->getSettings()->position === 'toppush'
+                    ? 'top'
+                    : $this->getSettings()->position,
+            'static' => $this->getSettings()->position === 'toppush',
+            'law' => [
+                'regionalLaw' => false,
+            ],
+            'type' => $this->settings->type,
+            'content' => [
+                'message' => Craft::t(
+                    'cookie-consent',
+                    $this->settings->message
+                ),
+                'link' => Craft::t(
+                    'cookie-consent',
+                    $this->settings->learnMore
+                ),
+                'href' => is_string($this->settings->learnMoreLink)
+                    ? $this->settings->learnMoreLink
+                    : Entry::find()
+                        ->id($this->settings->learnMoreLink)
+                        ->one()->url,
+                'dismiss' => Craft::t(
+                    'cookie-consent',
+                    $this->settings->dismiss
+                ),
+                'allow' => Craft::t('cookie-consent', $this->settings->allow),
+                'deny' => Craft::t('cookie-consent', $this->settings->deny),
+            ],
+        ]);
     }
 
     // Protected Methods
@@ -177,11 +210,8 @@ class CookieConsent extends Plugin
      */
     protected function settingsHtml(): string
     {
-        return Craft::$app->view->renderTemplate(
-            'cookie-consent/settings',
-            [
-                'settings' => CookieConsent::getSettings()
-            ]
-        );
+        return Craft::$app->view->renderTemplate('cookie-consent/settings', [
+            'settings' => CookieConsent::getSettings(),
+        ]);
     }
 }
