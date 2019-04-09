@@ -177,8 +177,8 @@ class CookieConsent extends Plugin
                 'href' => is_string($this->settings->learnMoreLink)
                     ? $this->settings->learnMoreLink
                     : Entry::find()
-                        ->id($this->settings->learnMoreLink)
-                        ->one()->url,
+                            ->id($this->settings->learnMoreLink)
+                            ->one()->url ?? null,
                 'dismiss' => Craft::t(
                     'cookie-consent',
                     $this->settings->dismiss
