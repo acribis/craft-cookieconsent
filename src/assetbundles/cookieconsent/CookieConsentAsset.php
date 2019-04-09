@@ -10,6 +10,7 @@
 
 namespace acribis\cookieconsent\assetbundles\CookieConsent;
 
+use acribis\cookieconsent\CookieConsent;
 use Craft;
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
@@ -43,22 +44,19 @@ class CookieConsentAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@acribis/cookieconsent/assetbundles/cookieconsent/dist";
+        $this->sourcePath =
+            '@acribis/cookieconsent/assetbundles/cookieconsent/dist';
 
         // define the dependencies
         $this->depends = [
-            CpAsset::class,
+            //            CpAsset::class,
         ];
 
         // define the relative path to CSS/JS files that should be registered with the page
         // when this asset bundle is registered
-        $this->js = [
-            'js/CookieConsent.js',
-        ];
+        $this->js = ['js/cookieconsent.js'];
 
-        $this->css = [
-            'css/CookieConsent.css',
-        ];
+        $this->css = ['css/cookieconsent.css'];
 
         parent::init();
     }

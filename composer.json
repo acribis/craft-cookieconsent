@@ -2,7 +2,7 @@
     "name": "acribis/cookie-consent",
     "description": "This is a generic Craft CMS plugin",
     "type": "craft-plugin",
-    "version": "2.0.0-beta.3.2",
+    "version": "2.0.0-beta.4",
     "keywords": [
         "craft",
         "cms",
@@ -22,11 +22,11 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC1"
+        "craftcms/cms": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
-          "acribis\\cookieconsent\\": "src/"
+            "acribis\\cookieconsent\\": "src/"
         }
     },
     "extra": {

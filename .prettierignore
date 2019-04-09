@@ -1,0 +1,6 @@
+src/assetbundles/cookieconsent/dist/
+
+*.map
+*.twig
+
+.prettierignore

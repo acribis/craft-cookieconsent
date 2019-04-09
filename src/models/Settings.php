@@ -35,21 +35,116 @@ class Settings extends Model
     // =========================================================================
 
     /**
-     * Some field model attribute
+     * Set the positioning of the popup on the screen
      *
      * @var string
      */
-    public $someAttribute = 'Some Default';
-
     public $position = 'bottom';
+
+    /**
+     * The display style of the popup
+     *
+     * @var string
+     */
     public $layout = 'block';
+
+    /**
+     * Popup background color
+     *
+     * @var string
+     */
     public $paletteBanner = '#000000';
+
+    /**
+     * Button background color
+     *
+     * @var string
+     */
     public $paletteButton = '#f1d600';
+
+    /**
+     * Popup text color
+     *
+     * @var string
+     */
     public $paletteBannerText = '#ffffff';
+
+    /**
+     * Button text color
+     *
+     * @var string
+     */
     public $paletteButtonText = '#000000';
+
+    /**
+     * The compliance type
+     *
+     * @var string
+     */
+    public $type = '';
+
+    /**
+     * Toggle the show more link
+     *
+     * @var bool
+     */
     public $showLink = true;
-    public $learnMoreLink;
+
+    /**
+     * The learn more target as either an url or entry id
+     *
+     * @var string|int
+     */
+    public $learnMoreLink = 'http://cookiesandyou.com/';
+
+    /**
+     * The id of the element the popup should attach to
+     *
+     * @var string
+     */
+    public $containerSelector;
+
+    /**
+     * CSS injected into the page
+     *
+     * @var string
+     */
     public $css;
+
+    /**
+     * The notification message
+     *
+     * @var string
+     */
+    public $message = 'This website uses cookies to ensure you get the best experience on our website.';
+
+    /**
+     * The learn more link text
+     *
+     * @var string
+     */
+    public $learnMore = 'Learn More';
+
+    /**
+     * The dismiss button text
+     *
+     * @var string
+     */
+    public $dismiss = 'Dismiss Notification';
+
+    /**
+     * The allow button text
+     *
+     * @var string
+     */
+    public $allow = 'Allow Cookies';
+
+    /**
+     * The decline button text
+     *
+     * @var string
+     */
+    public $deny = 'Decline';
 
     // Public Methods
     // =========================================================================
@@ -67,9 +162,42 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['someAttribute', 'position', 'layout', 'paletteBanner', 'paletteButton', 'paletteBannerText', 'paletteButtonText', 'css'], 'string'],
+            [
+                [
+                    'position',
+                    'layout',
+                    'paletteBanner',
+                    'paletteButton',
+                    'paletteBannerText',
+                    'paletteButtonText',
+                    'message',
+                    'learnMore',
+                    'dismiss',
+                    'allow',
+                    'deny',
+                ],
+                'required',
+            ],
+            [
+                [
+                    'position',
+                    'layout',
+                    'paletteBanner',
+                    'paletteButton',
+                    'paletteBannerText',
+                    'paletteButtonText',
+                    'type',
+                    'containerSelector',
+                    'css',
+                    'message',
+                    'learnMore',
+                    'dismiss',
+                    'allow',
+                    'deny',
+                ],
+                'string',
+            ],
             ['showLink', 'boolean'],
-            ['someAttribute', 'default', 'value' => 'Some Default'],
         ];
     }
 }
