@@ -31,7 +31,7 @@
     },
     "extra": {
         "name": "Cookie Consent",
-        "handle": "cookie-consent",
+        "handle": "acr-cookie-consent",
         "hasCpSettings": true,
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/acribis/cookie-consent/master/CHANGELOG.md",
